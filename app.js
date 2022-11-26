@@ -1,3 +1,5 @@
+const result = document.getElementById(`postResults`);
+
 function postFunction(){
     axios.request({
         url: `https://jsonplaceholder.typicode.com/posts`,
@@ -9,85 +11,79 @@ function postFunction(){
 }
 
 function postFail(error){
-    document.getElementById(`postResults`).innerHTML = `Error Creating Post`;
+    result.innerHTML = `Error Creating Post`;
 }
 
 function postSuccess(response){
     let post = response.data;
-    document.getElementById(`postResults`).insertAdjacentHTML(`beforeend`, `<p>${post.body}</p>`);
-    console.log(response);
+    result.insertAdjacentHTML(`beforeend`, `<p>Post: ${post.body}</p>`);
 }
 
 
-// function patchFunction(){
-//     axios.request({
-//         url: `https://jsonplaceholder.typicode.com/posts/1`,
-//         method: "PATCH",
-//         params: {
-//             s: document.getElementById(`textBox`).value
-//         }
-//     }).then(patchSuccess).catch(patchFail);
-// }
+function patchFunction(){
+    axios.request({
+        url: `https://jsonplaceholder.typicode.com/posts/1`,
+        method: "PATCH",
+        params: {
+            body: document.getElementById(`textBox`).value
+        }
+    }).then(patchSuccess).catch(patchFail);
+}
 
-// function patchFail(error){
-//     document.getElementById(`postResults`).innerHTML = `Error Creating Post`;
-// }
+function patchFail(error){
+    result.innerHTML = `Error Updating Post`;
+}
 
-// function patchSuccess(response){
-//     let post = response.data[0];
-//     document.getElementById(`postResult`).insertAdjacentHTML(`beforeend`, `<p>Post has been update.</p>`);
-//     console.log(response);
-// }
-
-
-
-// function deleteFunction(){
-//     axios.request({
-//         url: `https://jsonplaceholder.typicode.com/posts/1`,
-//         method: "DELETE",
-//     }).then(deleteSuccess).catch(deleteFail);
-// }
-
-// function deleteFail(error){
-//     document.getElementById(`postResults`).innerHTML = `Error Creating Post`;
-// }
-
-// function deleteSuccess(response){
-//     let post = response.data[0];
-//     document.getElementById(`postResult`).insertAdjacentHTML(`beforeend`, `<p>Your post has been deleted!</p>`);
-//     console.log(response);
-// }
+function patchSuccess(response){
+    let patch = response.data;
+    result.insertAdjacentHTML(`beforeend`, `<p>Patch Successful</p>`);
+}
 
 
 
-// function getFunction(){
-//     axios.request({
-//         url: `https://jsonplaceholder.typicode.com/posts`,
-//         method: "GET",
-//         params: {
-//             s: document.getElementById(`textBox`).value
-//         }
-//     }).then(getSuccess).catch(getFail);
-// }
+function deleteFunction(){
+    axios.request({
+        url: `https://jsonplaceholder.typicode.com/posts/1`,
+        method: "DELETE",
+    }).then(deleteSuccess).catch(deleteFail);
+}
 
-// function getFail(error){
-//     document.getElementById(`postResults`).innerHTML = `Error Creating Post`;
-// }
+function deleteFail(error){
+    result.innerHTML = `Error Deleting Post`;
+}
 
-// function getSuccess(response){
-//     let post = response.data[0];
-//     for (allPosts of post){
-//         document.getElementById(`postResult`).insertAdjacentHTML(`beforeend`, `<p>${allPosts}</p>`);
-//     }
-//     console.log(response);
-// }
+function deleteSuccess(response){
+    let del = response.data;
+    result.innerHTML = "";
+}
+
+
+
+function getFunction(){
+    axios.request({
+        url: `https://jsonplaceholder.typicode.com/posts`,
+        method: "GET",
+    }).then(getSuccess).catch(getFail);
+}
+
+function getFail(error){
+    result.innerHTML = `Error Getting Post`;
+}
+
+function getSuccess(response){
+    let post = response.data[0];
+    for (allPosts of post){
+        result.insertAdjacentHTML(`beforeend`, `<p>${allPosts}</p>`);
+    }
+}
 
 
 
 
 function clearFunction(){
-    document.getElementById(`postResults`).innerHTML = "";
+    result.innerHTML = "";
 }
 
-document.getElementById(`clearPost`).addEventListener(`click`, clearFunction);
+document.getElementById(`clearPost`).addEventListener(`click`, deleteFunction);
 document.getElementById(`submitPost`).addEventListener(`click`, postFunction);
+document.getElementById(`updatePost`).addEventListener(`click`, patchFunction);
