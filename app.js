@@ -71,9 +71,10 @@ function getFail(error){
 }
 
 function getSuccess(response){
-    let post = response.data[0];
+    let post = response.data;
     for (allPosts of post){
-        result.insertAdjacentHTML(`beforeend`, `<p>${allPosts}</p>`);
+        result.insertAdjacentHTML(`beforeend`, `<p>${allPosts.id}. ${allPosts.title}</p>`);
+        result.insertAdjacentHTML(`beforeend`, `<p>${allPosts.body}</p>`);
     }
 }
 
