@@ -15,6 +15,7 @@ function postFail(error){
 }
 
 function postSuccess(response){
+    clearFunction();
     let post = response.data;
     result.insertAdjacentHTML(`beforeend`, `<p>Post: ${post.body}</p>`);
 }
@@ -35,6 +36,7 @@ function patchFail(error){
 }
 
 function patchSuccess(response){
+    clearFunction();
     let patch = response.data;
     result.insertAdjacentHTML(`beforeend`, `<p>Patch Successful</p>`);
 }
